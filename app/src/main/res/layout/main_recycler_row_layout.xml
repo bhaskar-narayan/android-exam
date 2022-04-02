@@ -9,86 +9,48 @@
             type="com.bhaskar.photobook.models.ApiModelItem" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:padding="3dp"
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:orientation="horizontal">
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline3"
-            android:layout_width="wrap_content"
+        <ImageView
+            android:id="@+id/mainAdapterImageView"
+            loadImageUrl="@{data.download_url}"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:contentDescription="@string/main_adapter_image"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent=".02" />
+            android:orientation="vertical">
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent=".98" />
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/mainAdapterCardView"
-            android:layout_width="0dp"
-            android:layout_height="110dp"
-            app:cardBackgroundColor="@color/card_background"
-            app:cardCornerRadius="10dp"
-            app:layout_constraintEnd_toStartOf="@+id/guideline4"
-            app:layout_constraintStart_toStartOf="@+id/guideline3"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/mainAdapterTextAuthor"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:text="@{data.author}"
+                android:layout_marginStart="5dp"
+                android:textAlignment="textStart"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
 
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintGuide_percent=".5" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/mainAdapterTextCustom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="5dp"
+                android:text="This is modified text"
+                android:textSize="15sp"
+                android:textAlignment="textStart"
+                android:textColor="@color/black"/>
 
-                <ImageView
-                    android:id="@+id/mainAdapterImageView"
-                    android:layout_width="150dp"
-                    android:layout_height="0dp"
-                    android:contentDescription="@string/main_adapter_image"
-                    android:src="@drawable/sample"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/mainAdapterTextAuthor"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="5dp"
-                    android:text="@{data.author}"
-                    android:textAlignment="textEnd"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    app:layout_constraintBottom_toTopOf="@+id/guideline2"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/mainAdapterImageView"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/mainAdapterTextCustom"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="5dp"
-                    android:text="This is modified text"
-                    android:textAlignment="textEnd"
-                    android:textColor="@color/white"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/mainAdapterImageView"
-                    app:layout_constraintTop_toTopOf="@+id/guideline2" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </com.google.android.material.card.MaterialCardView>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

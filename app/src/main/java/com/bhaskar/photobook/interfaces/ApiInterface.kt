@@ -3,6 +3,7 @@ package com.bhaskar.photobook.interfaces
 import com.bhaskar.photobook.constants.Constant.API_END_POINT
 import com.bhaskar.photobook.models.ApiModel
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
