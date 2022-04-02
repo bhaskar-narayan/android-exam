@@ -1,7 +1,10 @@
 package com.bhaskar.photobook.adapters
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -10,11 +13,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bhaskar.photobook.databinding.MainRecyclerRowLayoutBinding
 import com.bhaskar.photobook.models.ApiModel
 import com.bhaskar.photobook.models.ApiModelItem
+import com.bhaskar.photobook.ui.DetailApiActivity
+import com.bhaskar.photobook.ui.MainActivity
 import com.bumptech.glide.Glide
 import java.net.URL
+import java.util.concurrent.Executors
 
 
-class MainRecyclerAdapter : RecyclerView.Adapter<MainRecyclerAdapter.MyViewHolder>() {
+class MainRecyclerAdapter(val context: MainActivity) : RecyclerView.Adapter<MainRecyclerAdapter.MyViewHolder>() {
     private lateinit var binding: MainRecyclerRowLayoutBinding
     private var data = ApiModel()
 
@@ -62,6 +68,11 @@ class MainRecyclerAdapter : RecyclerView.Adapter<MainRecyclerAdapter.MyViewHolde
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.bind(data[position])
+        binding.mainAdapterImageView.setOnClickListener {
+            val intent = Intent(context, DetailApiActivity::class.java)
+            intent.putExtra("id", data[position].id)
+            context.startActivity(intent)
+        }
     }
 
     override fun getItemCount() = data.size

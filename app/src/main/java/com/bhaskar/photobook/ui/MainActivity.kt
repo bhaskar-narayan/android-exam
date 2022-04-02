@@ -2,8 +2,12 @@ package com.bhaskar.photobook.ui
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
+import android.view.MotionEvent
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -12,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bhaskar.photobook.R
 import com.bhaskar.photobook.adapters.MainRecyclerAdapter
 import com.bhaskar.photobook.constants.Constant.LIMIT
+import com.bhaskar.photobook.constants.Logs.SCROLL_CHECK
 import com.bhaskar.photobook.databinding.ActivityMainBinding
 import com.bhaskar.photobook.viewmodels.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
@@ -23,11 +28,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mainAdapter: MainRecyclerAdapter
     private var page = 0
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        mainAdapter = MainRecyclerAdapter()
+        mainAdapter = MainRecyclerAdapter(this@MainActivity)
         makeApiCall()
         populateMainAdapter()
         mainScrollView.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
@@ -49,7 +55,7 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("NotifyDataSetChanged")
     private fun makeApiCall() {
-        viewModel.callListImageApi(page, LIMIT)
+        viewModel.callListApi(page, LIMIT)
         viewModel.getDataObserver().observe(this, Observer {
             if (it != null) {
                 mainAdapter.setData(it)
