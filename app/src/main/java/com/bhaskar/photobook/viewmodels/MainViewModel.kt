@@ -9,6 +9,7 @@ import androidx.databinding.library.baseAdapters.BR
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.bhaskar.photobook.clients.ApiClient
+import com.bhaskar.photobook.constants.Constant.LIMIT
 import com.bhaskar.photobook.constants.Logs
 import com.bhaskar.photobook.constants.Logs.API_CALL_ERROR
 import com.bhaskar.photobook.models.ApiModel
@@ -29,7 +30,7 @@ class MainViewModel: ViewModel() {
     }
 
     fun callListImageApi(page: Int, limit: Int) {
-        val apiCall = ApiClient.create().getAllData(1, 20)
+        val apiCall = ApiClient.create().getAllData(page, LIMIT)
         visibility = true
         apiCall.enqueue(object : Callback<ApiModel> {
             override fun onFailure(call: Call<ApiModel>, t: Throwable) {
