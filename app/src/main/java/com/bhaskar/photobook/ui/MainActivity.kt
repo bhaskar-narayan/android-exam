@@ -2,12 +2,11 @@ package com.bhaskar.photobook.ui
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
-import android.view.MotionEvent
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -26,6 +25,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: MainViewModel
     private lateinit var mainAdapter: MainRecyclerAdapter
+    private lateinit var timeHandler: Handler
+    private lateinit var timeRunnable: Runnable
+    private var time: Long = 5000
     private var page = 0
 
     @SuppressLint("ClickableViewAccessibility")
@@ -36,6 +38,11 @@ class MainActivity : AppCompatActivity() {
         mainAdapter = MainRecyclerAdapter(this@MainActivity)
         makeApiCall()
         populateMainAdapter()
+        timeHandler = Handler(Looper.getMainLooper())
+        timeRunnable = Runnable {
+            Toast.makeText(this@MainActivity, "User inactive for ${time/1000} secs!", Toast.LENGTH_SHORT).show()
+        }
+        startHandler()
         mainScrollView.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
             if (scrollY == v.getChildAt(0).measuredHeight - v.measuredHeight) {
                 page++
@@ -43,6 +50,21 @@ class MainActivity : AppCompatActivity() {
                 populateMainAdapter()
             }
         })
+    }
+
+    override fun onUserInteraction() {
+        super.onUserInteraction()
+        Log.d(SCROLL_CHECK, "onTouchEvent: ")
+        stopHandler()
+        startHandler()
+    }
+
+    private fun stopHandler() {
+        timeHandler.removeCallbacks(timeRunnable)
+    }
+
+    private fun startHandler() {
+        timeHandler.postDelayed(timeRunnable, time)
     }
 
     private fun populateMainAdapter() {

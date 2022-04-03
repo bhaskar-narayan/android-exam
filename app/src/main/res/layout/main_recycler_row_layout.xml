@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginStart="5dp"
-                android:text="This is modified text"
+                android:visibility="visible"
                 android:textSize="15sp"
                 android:textAlignment="textStart"
                 android:textColor="@color/black"/>
