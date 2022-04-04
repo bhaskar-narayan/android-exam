@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Photobook</string>
     <string name="main_adapter_image">Main Adapter Image</string>
+    <string name="fetching_error">Fetching Error!</string>
 </resources>

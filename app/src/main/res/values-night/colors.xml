@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="card_background">#007705</color>
+    <color name="progress_bar_color">#FFEB3B</color>
 </resources>
