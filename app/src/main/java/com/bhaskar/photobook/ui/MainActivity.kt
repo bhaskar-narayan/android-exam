@@ -5,8 +5,10 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.NestedScrollView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -18,6 +20,7 @@ import com.bhaskar.photobook.constants.Constant.LIMIT
 import com.bhaskar.photobook.constants.Logs.SCROLL_CHECK
 import com.bhaskar.photobook.databinding.ActivityMainBinding
 import com.bhaskar.photobook.viewmodels.MainViewModel
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -54,7 +57,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onUserInteraction() {
         super.onUserInteraction()
-        Log.d(SCROLL_CHECK, "onTouchEvent: ")
+        Log.d(SCROLL_CHECK, "")
         stopHandler()
         startHandler()
     }
