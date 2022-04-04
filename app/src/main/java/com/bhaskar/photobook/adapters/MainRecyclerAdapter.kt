@@ -15,12 +15,13 @@ import com.bhaskar.photobook.models.ApiModel
 import com.bhaskar.photobook.models.ApiModelItem
 import com.bhaskar.photobook.ui.DetailApiActivity
 import com.bhaskar.photobook.ui.MainActivity
-import com.bumptech.glide.Glide
-import java.net.URL
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.util.concurrent.Executors
 
 
-class MainRecyclerAdapter(val context: MainActivity) : RecyclerView.Adapter<MainRecyclerAdapter.MyViewHolder>() {
+class MainRecyclerAdapter(private val context: MainActivity) : RecyclerView.Adapter<MainRecyclerAdapter.MyViewHolder>() {
     private lateinit var binding: MainRecyclerRowLayoutBinding
     private var data = ApiModel()
 
@@ -36,24 +37,22 @@ class MainRecyclerAdapter(val context: MainActivity) : RecyclerView.Adapter<Main
         @JvmStatic
         @BindingAdapter("loadImageUrl")
         fun loadImageFromUrl(imageView: ImageView, url: String) {
-//            val executor = Executors.newSingleThreadExecutor()
-//            val handler = Handler(Looper.getMainLooper())
-//            var image: Bitmap? = null
-//            executor.execute {
-//                try {
-//                    val `in` = java.net.URL(url).openStream()
-//                    image = BitmapFactory.decodeStream(`in`)
-//                    handler.post {
-//                        imageView.setImageBitmap(image)
-//                    }
-//                } catch (e: Exception) {
-//                    e.printStackTrace()
-//                }
-//            }
-            Glide.with(imageView)
-                .load(url)
-                .circleCrop()
-                .into(imageView)
+            val executor = Executors.newSingleThreadExecutor()
+            val handler = Handler(Looper.getMainLooper())
+            var image: Bitmap? = null
+            CoroutineScope(Dispatchers.IO).launch {
+                executor.execute {
+                    try {
+                        val `in` = java.net.URL(url).openStream()
+                        image = BitmapFactory.decodeStream(`in`)
+                        handler.post {
+                            imageView.setImageBitmap(image)
+                        }
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
+            }
         }
     }
 

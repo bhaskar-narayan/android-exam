@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onUserInteraction() {
         super.onUserInteraction()
-        Log.d(SCROLL_CHECK, "onTouchEvent: ")
+        Log.d(SCROLL_CHECK, "")
         stopHandler()
         startHandler()
     }
