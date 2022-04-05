@@ -15,7 +15,7 @@
         android:padding="15dp"
         android:orientation="horizontal">
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/mainAdapterImageView"
             loadImageUrl="@{data.download_url}"
             android:layout_width="150dp"

@@ -8,6 +8,7 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bhaskar.photobook.databinding.MainRecyclerRowLayoutBinding
@@ -36,7 +37,7 @@ class MainRecyclerAdapter(private val context: MainActivity) : RecyclerView.Adap
     companion object {
         @JvmStatic
         @BindingAdapter("loadImageUrl")
-        fun loadImageFromUrl(imageView: ImageView, url: String) {
+        fun loadImageFromUrl(imageView: AppCompatImageView, url: String) {
             val executor = Executors.newSingleThreadExecutor()
             val handler = Handler(Looper.getMainLooper())
             var image: Bitmap? = null
